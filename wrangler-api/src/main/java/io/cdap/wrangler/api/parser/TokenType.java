@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017-2019 Cask Data, Inc.
+ * Copyright © 2017-2025 Cask Data, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -79,7 +79,7 @@ public enum TokenType implements Serializable {
   /**
    * Represents the enumerated type for the object of type {@code BoolList} type.
    * This type is associated with the rule that is a collection of {@code Boolean} values
-   * separated by comman(,). E.g.
+   * separated by comma(,). E.g.
    * <code>
    *   ColumnName[,ColumnName]*
    * </code>
@@ -104,7 +104,6 @@ public enum TokenType implements Serializable {
    * <code>
    *   Numeric[,Numeric]*
    * </code>
-   *
    */
   NUMERIC_LIST,
 
@@ -152,5 +151,17 @@ public enum TokenType implements Serializable {
    * Represents the enumerated type for the object of type {@code String} with restrictions
    * on characters that can be present in a string.
    */
-  IDENTIFIER
+  IDENTIFIER,
+
+  /**
+   * Represents the enumerated type for the object of type {@code ByteSize}.
+   * This type is associated with a token representing a byte size value, such as "10KB" or "1.5MB".
+   */
+  BYTE_SIZE,
+
+  /**
+   * Represents the enumerated type for the object of type {@code TimeDuration}.
+   * This type is associated with a token representing a time duration value, such as "5ms" or "2.1s".
+   */
+  TIME_DURATION
 }
