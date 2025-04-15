@@ -64,6 +64,9 @@ directive
     | stringList
     | numberRanges
     | properties
+    | value        // Added to support BYTE_SIZE and TIME_DURATION
+    | byteSizeArg  // Added for specific BYTE_SIZE arguments
+    | timeDurationArg // Added for specific TIME_DURATION arguments
   )*?
   ;
 
@@ -140,7 +143,12 @@ numberRange
  ;
 
 value
- : String | Number | Column | Bool
+ : String
+ | Number
+ | Bool
+ | Column
+ | BYTE_SIZE    // Added for byte size values
+ | TIME_DURATION // Added for time duration values
  ;
 
 ecommand
@@ -195,6 +203,13 @@ identifierList
  : Identifier (',' Identifier)*
  ;
 
+byteSizeArg
+ : BYTE_SIZE // Added for specific BYTE_SIZE argument parsing
+ ;
+
+timeDurationArg
+ : TIME_DURATION // Added for specific TIME_DURATION argument parsing
+ ;
 
 /*
  * Following are the Lexer Rules used for tokenizing the recipe.
@@ -298,6 +313,11 @@ fragment
 Comment
  : ('//' ~[\r\n]* | '/*' .*? '*/' | '--' ~[\r\n]* ) -> skip
  ;
+
+fragment BYTE_UNIT: ('B' | 'KB' | 'MB' | 'GB' | 'TB' | 'KiB' | 'MiB' | 'GiB' | 'TiB'); // Added for byte size units
+fragment TIME_UNIT: ('ns' | 'us' | 'ms' | 's' | 'm' | 'h' | 'd'); // Added for time duration units
+BYTE_SIZE: Number BYTE_UNIT; // Added for byte size tokens (e.g., 10KB, 1.5MB)
+TIME_DURATION: Number TIME_UNIT; // Added for time duration tokens (e.g., 5ms, 2.1s)
 
 Space
  : [ \t\r\n\u000C]+ -> skip
